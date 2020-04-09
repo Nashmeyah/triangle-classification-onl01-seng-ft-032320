@@ -7,7 +7,7 @@ class Triangle
   end
   def valid?
     if (@triangles.none? {|side| side <= 0}) && (@triangles[0] + @triangles[1] > @triangles[2] && @triangles[1] + @triangles[2] > @triangles[0] && @triangles[0] + @triangles[2] > @triangles[1])
-     return true 
+     return true
     else
      false
     end
@@ -26,6 +26,6 @@ class Triangle
       raise TriangleError
     end
   end
-  class TriangleError < StandardError 
+  class TriangleError < StandardError
   end
 end
