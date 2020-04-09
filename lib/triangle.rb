@@ -1,33 +1,31 @@
 class Triangle
-  attr_accessor :side_1, :side_2, :side_3
-
-  def initialize(side_1, side_2, side_3)
-    @side_1 = side_1
-    @side_2 = side_2
-    @side_3 = side_3
+  def initialize(side1, side2, side3)
+    @triangles = []
+    @triangles << side1
+    @triangles << side2
+    @triangles << side3
   end
-
+  def valid?
+    if (@triangles.none? {|side| side <= 0}) && (@triangles[0] + @triangles[1] > @triangles[2] && @triangles[1] + @triangles[2] > @triangles[0] && @triangles[0] + @triangles[2] > @triangles[1])
+     return true 
+    else
+     false
+    end
+  end
   def kind
-    if side_1 > 0 && side_2 > 0 && side_3 > 0
-      if side_1 == side_2 && side_2 == side_3 && side_1 == side_3
-        :equilateral
-      elsif side_1 == side_2 && side_2 == side_3 || side_1 == side_3 && side_2 == side_3
-        :isosceles
-      else side_1 != side_2 && side_2 != side_3 && side_1 != side_3
+    if valid?
+      if
+        @triangles[0] == @triangles[1] && @triangles[1] == @triangles[2]
+        return :equilateral
+      elsif @triangles.uniq.length == 2
+        return :isosceles
+      else
         :scalene
       end
     else
-      begin
-      raise PartnerError
-    rescue PartnerError => error
-        puts error.message
-    end
+      raise TriangleError
     end
   end
-
-  class TriangleError < StandardError
-      def message
-        "Invalid lengths"
-      end
+  class TriangleError < StandardError 
   end
 end
